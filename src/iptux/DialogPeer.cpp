@@ -15,7 +15,7 @@
 
 #include <cinttypes>
 #include <unistd.h>
-#include <sys/socket.h>
+//#include <sys/socket.h>
 #include <gdk/gdkkeysyms.h>
 
 #include "iptux/Command.h"

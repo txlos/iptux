@@ -15,7 +15,7 @@
 #include <cinttypes>
 #include <fcntl.h>
 #include <unistd.h>
-#include <sys/socket.h>
+//#include <sys/socket.h>
 
 #include "SendFile.h"
 #include "global.h"

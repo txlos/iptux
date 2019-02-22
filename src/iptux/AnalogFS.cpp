@@ -128,8 +128,17 @@ int AnalogFS::mkdir(const char *dir, mode_t mode) {
   strcpy(tpath, path);
   mergepath(tpath, dir);
   if (::access(tpath, F_OK) == 0) return 0;
-  if ((result = ::mkdir(tpath, mode)) != 0)
+
+#ifdef __MINGW64__
+  if ((result = ::mkdir(tpath)) != 0)
     pwarning(_("Mkdir() directory \"%s\" failed, %s"), tpath, strerror(errno));
+
+#else
+if ((result = ::mkdir(tpath, mode)) != 0)
+pwarning(_("Mkdir() directory \"%s\" failed, %s"), tpath, strerror(errno));
+
+#endif // __MINGW64__
+
 
   return result;
 }

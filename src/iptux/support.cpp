@@ -13,10 +13,10 @@
 #include "support.h"
 
 #include <unistd.h>
-#include <net/if.h>
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <sys/socket.h>
+//#include <net/if.h>
+//#include <sys/ioctl.h>
+//#include <sys/stat.h>
+//#include <sys/socket.h>
 
 #include "UiCoreThread.h"
 #include "UiProgramData.h"
@@ -32,27 +32,7 @@ namespace iptux {
  * @param url url
  */
 void iptux_open_url(const char *url) {
-  int fd;
-
-  if (fork() != 0) return;
-
-  /* 关闭由iptux打开的所有可能的文件描述符 */
-  fd = 3;
-  while (fd < FD_SETSIZE) {
-    close(fd);
-    fd++;
-  }
-  /* 脱离终端控制 */
-  setsid();
-
-  /* 打开URL */
-  execlp("xdg-open", "xdg-open", url, NULL);
-  /* 测试系统中所有可能被安装的浏览器 */
-  execlp("firefox", "firefox", url, NULL);
-  execlp("opera", "opera", url, NULL);
-  execlp("konqueror", "konqueror", url, NULL);
-  execlp("open", "open", url, NULL);
-  pwarning(_("Can't find any available web browser!\n"));
+  PlatformOpenUrl(url);
 }
 
 /**

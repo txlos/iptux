@@ -16,7 +16,7 @@
 #include <utime.h>
 #include <unistd.h>
 #include <sys/time.h>
-#include <sys/socket.h>
+//#include <sys/socket.h>
 
 #include "iptux/AnalogFS.h"
 #include "iptux/Command.h"
@@ -27,6 +27,7 @@
 #include "iptux/utils.h"
 #include "iptux/wrapper.h"
 #include "iptux/UiHelper.h"
+#include "Platform.h"
 
 namespace iptux {
 

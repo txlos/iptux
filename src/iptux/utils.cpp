@@ -19,9 +19,9 @@
 #include <sstream>
 #include <unistd.h>
 #include <sys/param.h>
-#include <sys/mount.h>
+//#include <sys/mount.h>
 #ifndef __APPLE__
-#include <sys/vfs.h>
+//#include <sys/vfs.h>
 #endif
 
 #include "iptux/ipmsg.h"

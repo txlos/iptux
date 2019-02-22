@@ -1,7 +1,13 @@
 pkg_check_modules (IPTUX REQUIRED glib-2.0>=2.32.0 gthread-2.0>=2.14.0 gtk+-3.0>=3.12 jsoncpp>=1.0)
+pkg_search_module(GLIB REQUIRED glib-2.0)
+
+include_directories(${GLIB_INCLUDE_DIRS})
+message(${GLIB_INCLUDE_DIRS})
 include_directories("${PROJECT_SOURCE_DIR}/src" "${PROJECT_BINARY_DIR}/src" "${PROJECT_BINARY_DIR}/src/iptux" "${IPTUX_INCLUDE_DIRS}")
 link_libraries("${IPTUX_LIBRARIES}")
 link_libraries("${Intl_LIBRARIES}")
+link_libraries(${GLIB_LDFLAGS})
+
 if(GST_FOUND)
 	include_directories("${GST_INCLUDE_DIRS}")
 	link_libraries("${GST_LIBRARIES}")
@@ -54,27 +60,16 @@ add_library(iptux
 	utils.cpp
 	wrapper.cpp
 	WindowConfig.cpp
-        TransWindow.cpp TransWindow.h
-		TransFileModel.cpp TransFileModel.h
-		TransAbstract.cpp TransAbstract.h
-		UiModels.h UiModels.cpp
-		IptuxResource.h IptuxResource.cpp
-        UiHelper.h UiHelper.cpp
+    TransWindow.cpp TransWindow.h
+	TransFileModel.cpp TransFileModel.h
+	TransAbstract.cpp TransAbstract.h
+	UiModels.h UiModels.cpp
+	IptuxResource.h IptuxResource.cpp
+    UiHelper.h UiHelper.cpp
     ProgramData.cpp ProgramData.h
     CoreThread.cpp CoreThread.h
+    Platform.h Platform.cpp Platform-win32.h Platform-win32.cpp PlatformLinux.h PlatformLinux.cpp
     Event.cpp Event.h Exception.cpp Exception.h)
 
 
-add_executable(libiptux_test
-    IptuxConfigTest.cpp
-	UtilsTest.cpp
-	TestMain.cpp
-		ProgramDataTest.cpp TestHelper.h TestHelper.cpp UiProgramDataTest.cpp CoreThreadTest.cpp ModelsTest.cpp
-		UiCoreThreadTest.cpp LogSystemTest.cpp UdpDataTest.cpp)
-if(GTEST_FOUND)
-	include_directories(${GTEST_INCLUDE_DIRS})
-	target_link_libraries(libiptux_test ${GTEST_BOTH_LIBRARIES} iptux pthread)
-else()
-	target_link_libraries(libiptux_test gtest iptux)
-endif()
-add_test(NAME libiptux_test COMMAND libiptux_test)
+

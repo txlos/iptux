@@ -13,7 +13,16 @@
 #define IPTUX_MESS_H
 
 #include <string>
-#include <arpa/inet.h>
+
+#ifdef __WIN32__
+#include <Winsock2.h>
+#include <Ws2tcpip.h>
+#undef ERROR
+#undef CreateWindow
+typedef int in_addr_t;
+#else
+//#include <arpa/inet.h>
+#endif
 
 #include <glib.h>
 #include <json/json.h>

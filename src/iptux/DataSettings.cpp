@@ -11,7 +11,8 @@
 //
 #include "config.h"
 #include "DataSettings.h"
-
+#include <fstream>
+#include <exception>
 #include <unistd.h>
 #include <dirent.h>
 
@@ -1134,8 +1135,10 @@ void DataSettings::ReadNetSegment(const char *filename, GSList **list) {
   NetSegment *ns;
   FILE *stream;
   size_t n;
+  std::ifstream fi;
+  fi.open(filename);
 
-  if (!(stream = fopen(filename, "r"))) {
+  if (!fi.is_open()) {
     parent = GTK_WIDGET(g_datalist_get_data(&widset, "dialog-widget"));
     pop_warning(parent, _("Fopen() file \"%s\" failed!\n%s"), filename,
                 strerror(errno));
@@ -1144,7 +1147,16 @@ void DataSettings::ReadNetSegment(const char *filename, GSList **list) {
 
   n = 0;
   lineptr = NULL;
-  while (getline(&lineptr, &n, stream) != -1) {
+  char szline[10240];
+  lineptr = szline;
+  while (true) {
+    try {
+      fi.getline(szline, 10240);
+    }
+    catch (std::exception &)
+    {
+      break;
+    }
     if (*(lineptr + strspn(lineptr, "\t\x20")) == '#') continue;
     switch (sscanf(lineptr, "%s - %s //%s", buf[0], buf[1], buf[2])) {
       case 3:

@@ -23,6 +23,8 @@ using namespace std;
 
 namespace iptux {
 
+  typedef unsigned int uint;
+
 /**
  * 写出数据.
  * @param fd 文件描述符
@@ -80,7 +82,7 @@ ssize_t xread(int fd, void *buf, size_t count) {
  * @return 成功读取的消息长度，-1表示读取消息出错
  */
 ssize_t read_ipmsg_prefix(int fd, void *buf, size_t count) {
-  uint number;
+  unsigned int number;
   size_t offset;
   ssize_t size;
 

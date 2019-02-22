@@ -1,7 +1,13 @@
 #ifndef IPTUX_PROGRAMDATACORE_H
 #define IPTUX_PROGRAMDATACORE_H
 
+#ifdef __MINGW64__
+#include <Winsock2.h>
+#undef ERROR
+#undef CreateWindow
+#else
 #include <netinet/in.h>
+#endif
 
 #include "iptux/IptuxConfig.h"
 #include "iptux/Models.h"
