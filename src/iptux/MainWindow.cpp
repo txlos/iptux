@@ -1048,7 +1048,7 @@ gchar* palInfo2HintMarkup(const PalInfo *pal) {
   gchar *user = g_markup_printf_escaped(_("User: %s"), pal->user);
   gchar *host = g_markup_printf_escaped(_("Host: %s"), pal->host);
   gchar *address;
-  inet_ntop(AF_INET, &pal->ipv4, ipstr, INET_ADDRSTRLEN);
+  inet_ntop(AF_INET, (void *)&pal->ipv4, ipstr, INET_ADDRSTRLEN);
   if (pal->segdes && *pal->segdes != '\0') {
     address = g_markup_printf_escaped(_("Address: %s(%s)"), pal->segdes, ipstr);
   } else {

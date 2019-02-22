@@ -15,7 +15,7 @@
 #include <cinttypes>
 #include <cstring>
 #include <unistd.h>
-#include <sys/socket.h>
+//#include <sys/socket.h>
 
 #include "iptux/AnalogFS.h"
 #include "iptux/Command.h"

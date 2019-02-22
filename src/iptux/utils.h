@@ -13,10 +13,17 @@
 #define IPTUX_UTILS_H
 
 #include <string>
-
+#include "Platform.h"
 #include "iptux/Models.h"
 
 namespace iptux {
+
+#ifdef __MINGW64__
+  void bzero(void *s, size_t n)
+  {
+    memset(s, 0, n);
+  }
+#endif
 
 #define difftimeval(val2, val1)                                  \
   ((((val2).tv_sec - (val1).tv_sec) * 1000000 + (val2).tv_usec - \

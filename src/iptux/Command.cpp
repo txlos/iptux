@@ -16,7 +16,12 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <sys/socket.h>
+
+#ifdef __MINGW64__
+
+#else
+//#include <sys/socket.h>
+#endif
 
 #include "iptux/UiProgramData.h"
 #include "iptux/deplib.h"

@@ -22,12 +22,15 @@
 
 #include <glib.h>
 #include <libintl.h>
+#ifndef __WIN32__
 #include <execinfo.h>
+#endif
 
 #include "iptux/Application.h"
 #include "iptux/SoundSystem.h"
 #include "iptux/deplib.h"
 #include "iptux/output.h"
+#include "iptux/Platform.h"
 
 using namespace std;
 using namespace iptux;
@@ -124,24 +127,11 @@ static void dealLog(const IptuxConfig& config) {
 
 
 
-static void segvHandler(int sig) {
-  void *array[99];
-  size_t size;
-
-  // get void*'s for all entries on the stack
-  size = backtrace(array, 99);
-
-  // print out all the frames to stderr
-  fprintf(stderr, "Error: signal %d:\n", sig);
-  backtrace_symbols_fd(array, size, STDERR_FILENO);
-  exit(1);
-}
-
 
 int main(int argc, char** argv) {
-  signal(SIGSEGV, segvHandler);
-  signal(SIGABRT, segvHandler);
-  signal(SIGTRAP, segvHandler);
+
+  PlatformInit();
+
   setlocale(LC_ALL, "");
   bindtextdomain(GETTEXT_PACKAGE, __LOCALE_PATH);
   bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");

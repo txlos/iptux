@@ -23,8 +23,8 @@ include(FindPkgConfig)
 include(FindGettext)
 include(FindIntl)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -g")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations -g")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGTK_DISABLE_SINGLE_INCLUDES -DGSEAL_ENABLE")
 
 if(NOT Intl_FOUND)
@@ -38,7 +38,7 @@ configure_file (
   "${PROJECT_BINARY_DIR}/src/iptux/config.h"
   )
 
-enable_testing()
+# enable_testing()
 add_subdirectory(src)
 add_subdirectory(po)
 add_subdirectory(pixmaps)

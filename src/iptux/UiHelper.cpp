@@ -5,7 +5,7 @@
 #include <cerrno>
 
 #include <unistd.h>
-#include <sys/socket.h>
+//#include <sys/socket.h>
 
 #include <glib/gi18n.h>
 
@@ -28,8 +28,9 @@ void iptux_init() {
   init_iptux_environment();
 
   g_sndsys->InitSublayer();
-
+#ifndef __WIN32__
   signal(SIGPIPE, SIG_IGN);
+#endif
   g_cthrd->SystemLog("%s", _("Loading the process successfully!"));
 }
 

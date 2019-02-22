@@ -12,6 +12,7 @@
 #include "TcpData.h"
 #include "Command.h"
 #include "deplib.h"
+#include "Platform.h"
 
 namespace iptux {
 
